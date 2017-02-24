@@ -10,7 +10,6 @@ package org.rlopez.VerificationEmail;
  * @author rico
  */
 public class VerificationEmail {
-    
     public static void main(String[] args) {
         
     }
