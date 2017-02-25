@@ -70,7 +70,7 @@ public class VoilierDAO {
         try {
             vtm = connection.createStatement();
 
-            String sql = "select * from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Serie s ON v.id_serie=s.id_serie INNER JOIN Personne per ON pro.id_personne=per.id_personne";
+            String sql = "select id_voilier, nom_voilier, num_voile from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Serie s ON v.id_serie=s.id_serie INNER JOIN Personne per ON pro.id_personne=per.id_personne";
             ResultSet rs = vtm.executeQuery(sql);
 
             while (rs.next()) {

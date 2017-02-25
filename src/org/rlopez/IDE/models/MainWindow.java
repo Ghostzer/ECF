@@ -5,7 +5,9 @@
  */
 package org.rlopez.IDE.models;
 
+import java.util.List;
 import org.rlopez.IDE.dao.VoilierDAO;
+import org.rlopez.IDE.dao.ProprietaireDAO;
 
 /**
  *
@@ -16,12 +18,21 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    
     VoilierTableModel vtm;
-    
-    
+
     public MainWindow() {
         initComponents();
+
+        List<Proprietaire> proprietaires = ProprietaireDAO.findAllProprietaire();
+        for (Proprietaire p : proprietaires) {
+            comboProprio.addItem(p);
+        }
+
+        List<Serie> series = SerieDAO.f
+        for (Serie s : series) {
+            comboSerie.addItem(s);
+        }
+
     }
 
     /**
@@ -39,8 +50,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtNomVoilier = new javax.swing.JTextField();
         txtNumVoile = new javax.swing.JTextField();
-        comboIdProprio = new javax.swing.JComboBox<>();
-        comboIdSerie = new javax.swing.JComboBox<>();
+        comboProprio = new javax.swing.JComboBox<>();
+        comboSerie = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,9 +74,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         txtNumVoile.setText("jTextField2");
 
-        comboIdProprio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboProprio.setSelectedIndex(-1);
+        comboProprio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProprioActionPerformed(evt);
+            }
+        });
 
-        comboIdSerie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboSerie.setSelectedIndex(-1);
 
         jButton1.setText("Ajouter");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,8 +100,8 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(txtNomVoilier, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(txtNumVoile)
-                    .addComponent(comboIdProprio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboIdSerie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboProprio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboSerie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(274, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -96,9 +112,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(comboIdProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(comboIdSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -145,6 +161,10 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void comboProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProprioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboProprioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,8 +201,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comboIdProprio;
-    private javax.swing.JComboBox<String> comboIdSerie;
+    private javax.swing.JComboBox<Proprietaire> comboProprio;
+    private javax.swing.JComboBox<Serie> comboSerie;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

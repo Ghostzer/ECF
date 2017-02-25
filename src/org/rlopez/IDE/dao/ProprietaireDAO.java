@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.rlopez.IDE.models.Serie;
+import org.rlopez.IDE.models.Voilier;
 
 /**
  *
@@ -38,6 +40,41 @@ public class ProprietaireDAO {
         }
 
         return p;
+    }
+
+    public static List<Proprietaire> findAllProprietaire() {
+
+        Connection connection = ConnectDB.getConnection();
+
+        List<Proprietaire> Proprietaires = new ArrayList<>();
+        Statement ptm;
+        try {
+            ptm = connection.createStatement();
+
+            String sql = "select * from Proprietaire pro INNER JOIN Personne per ON pro.id_personne=per.id_personne";
+            ResultSet rs = ptm.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id_proprietaire");
+                int idPersonne = rs.getInt("per.id_personne");
+                String nomPersonne = rs.getString("per.nom_personne");
+                String prenomPersonne = rs.getString("per.prenom_personne");
+                String emailPersonne = rs.getString("per.email_personne");
+                int numLicence = rs.getInt("per.num_licence");
+                int anneeLicence = rs.getInt("per.annee_licence");
+                String nomClub = rs.getString("per.nom_club");
+                Proprietaire p = new Proprietaire(id, idPersonne, nomPersonne, prenomPersonne, emailPersonne, numLicence, anneeLicence, nomClub);
+
+                Proprietaires.add(p);
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+//            throw new RuntimeException();
+        }
+
+        return Proprietaires;
+
     }
 
 }

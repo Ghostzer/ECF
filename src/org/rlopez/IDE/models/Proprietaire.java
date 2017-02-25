@@ -28,7 +28,7 @@ public class Proprietaire extends Personne {
 
     @Override
     public String toString() {
-        return "Proprietaire{" + "id=" + id + '}';
+        return nom + " " + prenom;
     }
 
     
