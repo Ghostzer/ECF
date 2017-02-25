@@ -28,11 +28,6 @@ public class MainWindow extends javax.swing.JFrame {
             comboProprio.addItem(p);
         }
 
-        List<Serie> series = SerieDAO.f
-        for (Serie s : series) {
-            comboSerie.addItem(s);
-        }
-
     }
 
     /**
@@ -70,7 +65,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter un voilier"));
 
-        txtNomVoilier.setText("jTextField1");
+        txtNomVoilier.setToolTipText("Nom");
 
         txtNumVoile.setText("jTextField2");
 
@@ -98,8 +93,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
-                    .addComponent(txtNomVoilier, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(txtNumVoile)
+                    .addComponent(txtNomVoilier)
+                    .addComponent(txtNumVoile, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(comboProprio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboSerie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(274, Short.MAX_VALUE))

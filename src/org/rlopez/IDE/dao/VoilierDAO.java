@@ -21,44 +21,33 @@ import org.rlopez.IDE.models.Voilier;
  * @author rico
  */
 public class VoilierDAO {
-//    public static void insert(Voilier v) throws Exception {
-//        Connection connection = ConnectDB.getConnection();
-//
-//        PreparedStatement stmCreatePersonne;
-//        PreparedStatement stmCreateStagiaire;
-//        try {
-//            connection.setAutoCommit(false);
-//
-//            stmCreatePersonne = connection.prepareStatement("INSERT INTO Personne (nom, prenom) VALUES(?, ?);", Statement.RETURN_GENERATED_KEYS);
-//            stmCreatePersonne.setString(1, s.getNom());
-//            stmCreatePersonne.setString(2, s.getPrenom());
-//
-//            stmCreatePersonne.execute();
-//
-//            // get autoincrement pour récupérer l'ID de la Personne nouvellement créée
-//            ResultSet rs = stmCreatePersonne.getGeneratedKeys();
-//            if (!rs.next()) {
-//                throw new Exception("humm cannot get generated personne id");
-//            }
-//            s.setId(rs.getInt(1));
-//
-//            stmCreateStagiaire = connection.prepareStatement("INSERT INTO Stagiaire (Matricule, id_personne, id_formation) VALUES(?, ?, ?);");
-//            stmCreateStagiaire.setInt(1, s.getMatricule());
-//            stmCreateStagiaire.setInt(2, s.getId());
-//            stmCreateStagiaire.setInt(3, s.getFormation().getId());
-//
-//            stmCreateStagiaire.execute();
-//
-//            connection.commit();
-//            stmCreatePersonne.close();
-//            stmCreateStagiaire.close();
-//
-//        } catch (SQLException e) {
-//            //pb if here
-//            connection.rollback();
-//            throw new Exception("error while creating personne " + e.getMessage());
-//        }
-//    }
+    
+    public static void insert(Voilier v) throws Exception {
+        Connection connection = ConnectDB.getConnection();
+
+        PreparedStatement vtmInsertVoilier;
+        try {
+            connection.setAutoCommit(false);
+
+            vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (nom_voilier, num_voilier, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            vtmInsertVoilier.setString(1, v.getNom_voilier());
+            vtmInsertVoilier.setInt(2, v.getNum_voile());
+            vtmInsertVoilier.setInt(3, v.getNum_voile());
+            vtmInsertVoilier.setInt(4, v.getNum_voile());
+
+            vtmInsertVoilier.execute();
+
+
+            connection.commit();
+            vtmInsertVoilier.close();
+            vtmInsertVoilier.close();
+
+        } catch (SQLException e) {
+            //pb if here
+            connection.rollback();
+            throw new Exception("error while creating personne " + e.getMessage());
+        }
+    }
     
 
     public static List<Voilier> findAllVoilier() {
