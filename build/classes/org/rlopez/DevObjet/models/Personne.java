@@ -78,9 +78,8 @@ public int calculAge() {
 
     @Override
     public String toString() {
-        return "Nom = " + nom + ", Prénom = " + prenom + ", Email = " + email + ", Age = " + calculAge() + " ans";
+        return "Personne{" + "nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", annee=" + anneeNaissance + ", age=" + calculAge() + '}';
     }
-     
-    
+        
 
 }

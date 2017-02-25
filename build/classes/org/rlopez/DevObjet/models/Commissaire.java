@@ -18,13 +18,6 @@ public class Commissaire extends Personne {
         this.commite = commite;
     }
 
-    public Commissaire(String commite, String nom, String prenom, String email, int anneeNaissance) {
-        super(nom, prenom, email, anneeNaissance);
-        this.commite = commite;
-    }
-    
-    
-
     public String getCommite() {
         return commite;
     }
@@ -35,7 +28,7 @@ public class Commissaire extends Personne {
 
     @Override
     public String toString() {
-        return "Commissaire : " + super.toString() + ", Comité = " + commite;
+        return "Commissaire{" + super.toString() + "commite=" + commite + '}';
     }
     
     

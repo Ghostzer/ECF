@@ -21,16 +21,6 @@ public class Licencie extends Personne {
         this.pointsFFV = pointsFFV;
         this.anneeLicence = anneeLicence;
     }
-
-    public Licencie(int numLicence, double pointsFFV, int anneeLicence, String nom, String prenom, String email, int anneeNaissance) {
-        super(nom, prenom, email, anneeNaissance);
-        this.numLicence = numLicence;
-        this.pointsFFV = pointsFFV;
-        this.anneeLicence = anneeLicence;
-    }
-    
-    
-    
     
 
     public int getNumLicence() {
@@ -60,7 +50,7 @@ public class Licencie extends Personne {
     
     @Override
     public String toString() {
-        return "Licencié : " + super.toString() + ", Numéro Licence = " + numLicence + ", PointsFFV = " + pointsFFV + ", Année de licence = " + anneeLicence;
+        return "Licencie{" + super.toString() + "numLicence=" + numLicence + ", pointsFFV=" + pointsFFV + ", anneeLicence=" + anneeLicence + '}';
     }
     
     
