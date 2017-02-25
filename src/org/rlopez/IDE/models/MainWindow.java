@@ -5,6 +5,8 @@
  */
 package org.rlopez.IDE.models;
 
+import org.rlopez.IDE.dao.VoilierDAO;
+
 /**
  *
  * @author rico
@@ -14,6 +16,10 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    
+    VoilierTableModel vtm;
+    
+    
     public MainWindow() {
         initComponents();
     }
@@ -29,7 +35,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVoilier = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtNomVoilier = new javax.swing.JTextField();
         txtNumVoile = new javax.swing.JTextField();
@@ -39,18 +45,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVoilier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblVoilier);
+        vtm = new VoilierTableModel(VoilierDAO.findAllVoilier());
+        tblVoilier.setModel(vtm);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter un voilier"));
 
@@ -182,7 +187,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblVoilier;
     private javax.swing.JTextField txtNomVoilier;
     private javax.swing.JTextField txtNumVoile;
     // End of variables declaration//GEN-END:variables
