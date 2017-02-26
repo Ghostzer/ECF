@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.rlopez.IDE.models.Serie;
-import org.rlopez.IDE.models.Voilier;
 
 /**
  *
@@ -31,7 +29,14 @@ public class ProprietaireDAO {
             ptm.setInt(1, id);
             ResultSet rs = ptm.executeQuery();
             if (rs.next()) {
-                p = new Proprietaire(rs.getInt("id"), rs.getInt("per.id_personne"), rs.getString("per.nom_personne"), rs.getString("per.prenom_personne"), rs.getString("per.email_personne"), rs.getInt("per.num_licence"), rs.getInt("per.annee_licence"), rs.getString("per.nom_club"));
+                p = new Proprietaire(rs.getInt("id"), 
+                        rs.getInt("per.id_personne"), 
+                        rs.getString("per.nom_personne"), 
+                        rs.getString("per.prenom_personne"), 
+                        rs.getString("per.email_personne"), 
+                        rs.getInt("per.num_licence"), 
+                        rs.getInt("per.annee_licence"), 
+                        rs.getString("per.nom_club"));
             }
 
         } catch (SQLException e) {

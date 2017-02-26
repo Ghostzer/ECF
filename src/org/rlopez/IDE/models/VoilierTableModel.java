@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class VoilierTableModel extends AbstractTableModel {
     
-    private final String[] entetes = {"Nom", "Numéro", "Propriétaire", "Série"};
+    private final String[] entetes = {"Nom", "Numéro"};
     private List<Voilier> voiliers;
 
     public VoilierTableModel(List<Voilier> voiliers) {
@@ -64,12 +64,12 @@ public class VoilierTableModel extends AbstractTableModel {
 
             case 1:
                 return voiliers.get(rowIndex).getNum_voile();
-                
-            case 2:
-//                return voiliers.get(rowIndex).getPrenom();
-            
-            case 3:
-//                return voiliers.get(rowIndex).getFormation();
+//                
+//            case 2:
+//                return voiliers.get(rowIndex).getProprietaire();
+//            
+//            case 3:
+//                return voiliers.get(rowIndex).getClasse();
 
 
             default:

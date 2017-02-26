@@ -6,6 +6,8 @@
 package org.rlopez.IDE.models;
 
 import java.util.List;
+import javax.swing.JOptionPane;
+import org.rlopez.IDE.dao.ClasseDAO;
 import org.rlopez.IDE.dao.VoilierDAO;
 import org.rlopez.IDE.dao.ProprietaireDAO;
 
@@ -27,6 +29,11 @@ public class MainWindow extends javax.swing.JFrame {
         for (Proprietaire p : proprietaires) {
             comboProprio.addItem(p);
         }
+        
+                List<Classe> classes = ClasseDAO.findAllClasse();
+        for (Classe c : classes) {
+            comboClasse.addItem(c);
+        }
 
     }
 
@@ -46,19 +53,18 @@ public class MainWindow extends javax.swing.JFrame {
         txtNomVoilier = new javax.swing.JTextField();
         txtNumVoile = new javax.swing.JTextField();
         comboProprio = new javax.swing.JComboBox<>();
-        comboSerie = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        comboClasse = new javax.swing.JComboBox<>();
+        btnAddVoilier = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblVoilier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
         jScrollPane1.setViewportView(tblVoilier);
         vtm = new VoilierTableModel(VoilierDAO.findAllVoilier());
         tblVoilier.setModel(vtm);
@@ -67,23 +73,26 @@ public class MainWindow extends javax.swing.JFrame {
 
         txtNomVoilier.setToolTipText("Nom");
 
-        txtNumVoile.setText("jTextField2");
-
-        comboProprio.setSelectedIndex(-1);
         comboProprio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboProprioActionPerformed(evt);
             }
         });
 
-        comboSerie.setSelectedIndex(-1);
-
-        jButton1.setText("Ajouter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddVoilier.setText("Ajouter");
+        btnAddVoilier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddVoilierActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Nom du voilier");
+
+        jLabel2.setText("Numéro du voilier");
+
+        jLabel3.setText("Propriétaire");
+
+        jLabel4.setText("Classe");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -91,27 +100,44 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(txtNomVoilier)
-                    .addComponent(txtNumVoile, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(comboProprio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboSerie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddVoilier)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAddVoilier)
                 .addContainerGap())
         );
 
@@ -134,9 +160,17 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 288, Short.MAX_VALUE)))
+                        .addGap(0, 267, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,9 +186,33 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAddVoilierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVoilierActionPerformed
+        
+        
+        String nomVoilier = txtNomVoilier.getText();
+        String numVoile = txtNumVoile.getText();
+        int strTxtNumVoile = Integer.parseInt(numVoile);
+        Object listeProprio = comboProprio.getSelectedItem();
+        Object listeClasse = comboClasse.getSelectedItem();
+
+        Proprietaire proprietaire = (Proprietaire) listeProprio;
+        Classe classe = (Classe) listeClasse;
+
+        if (nomVoilier.isEmpty() || numVoile.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            
+        try {
+            Voilier voi = new Voilier(0, nomVoilier, strTxtNumVoile, proprietaire, classe);
+            VoilierDAO.insert(voi);
+            vtm.addVoilier(voi);
+//        fieldAddNom.setText(null);
+//        fieldAddPrenom.setText(null);
+//        fieldAddMatricule.setText(null);
+        } catch (Exception e1) {
+        }
+        }
+    }//GEN-LAST:event_btnAddVoilierActionPerformed
 
     private void comboProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProprioActionPerformed
         // TODO add your handling code here:
@@ -196,9 +254,16 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddVoilier;
+    private javax.swing.JComboBox<Classe> comboClasse;
     private javax.swing.JComboBox<Proprietaire> comboProprio;
-    private javax.swing.JComboBox<Serie> comboSerie;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

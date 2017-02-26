@@ -13,8 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.rlopez.IDE.models.Proprietaire;
-import org.rlopez.IDE.models.Serie;
+
 import org.rlopez.IDE.models.Voilier;
 /**
  *
@@ -32,8 +31,8 @@ public class VoilierDAO {
             vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (nom_voilier, num_voilier, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             vtmInsertVoilier.setString(1, v.getNom_voilier());
             vtmInsertVoilier.setInt(2, v.getNum_voile());
-            vtmInsertVoilier.setInt(3, v.getNum_voile());
-            vtmInsertVoilier.setInt(4, v.getNum_voile());
+            vtmInsertVoilier.setInt(3, v.getProprietaire().getId_proprietaire());
+            vtmInsertVoilier.setInt(4, v.getClasse().getId_classe());
 
             vtmInsertVoilier.execute();
 
@@ -59,16 +58,16 @@ public class VoilierDAO {
         try {
             vtm = connection.createStatement();
 
-            String sql = "select id_voilier, nom_voilier, num_voile from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Serie s ON v.id_serie=s.id_serie INNER JOIN Personne per ON pro.id_personne=per.id_personne";
+            String sql = "select id_voilier, nom_voilier, num_voile, per.nom_personne, per.prenom_personne, cla.nom_classe from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Classe cla ON v.id_classe=cla.id_classe INNER JOIN Personne per ON pro.id_personne=per.id_personne";
             ResultSet rs = vtm.executeQuery(sql);
 
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("id_voilier");
                 String nomVoilier = rs.getString("nom_voilier");
                 int numVoile = rs.getInt("num_voile");
-                Proprietaire proprietaire = ProprietaireDAO.findBy(rs.getInt("pro.id"));
-                Serie serie = SerieDAO.findBy(rs.getInt("s.id"));
-                Voilier v = new Voilier(id, nomVoilier, numVoile, proprietaire, serie);
+//                Proprietaire proprietaire = ProprietaireDAO.findBy(rs.getInt("pro.id"));
+//                Classe classe = ClasseDAO.findBy(rs.getInt("cla.id"));
+                Voilier v = new Voilier(id, nomVoilier, numVoile);
 
                 Voiliers.add(v);
             }
