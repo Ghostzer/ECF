@@ -19,7 +19,16 @@ public class Proprietaire extends Personne {
     public Proprietaire(int id_proprietaire, int id_Personne, String nom_personne, String prenom_personne, String email_personne, int num_licence, int annee_licence, String nom_club) {
         super(id_Personne, nom_personne, prenom_personne, email_personne, num_licence, annee_licence, nom_club);
         this.id_proprietaire = id_proprietaire;
+        this.id_Personne = id_Personne;
+        this.nom_personne = nom_personne;
+        this.prenom_personne = prenom_personne;
+        this.email_personne = email_personne;
+        this.num_licence = num_licence;
+        this.annee_licence = annee_licence;
+        this.nom_club = nom_club;
     }
+    
+    
 
     public int getId_proprietaire() {
         return id_proprietaire;

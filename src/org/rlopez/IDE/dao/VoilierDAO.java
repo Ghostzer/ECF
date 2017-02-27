@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.rlopez.IDE.models.Classe;
+import org.rlopez.IDE.models.Proprietaire;
 
 import org.rlopez.IDE.models.Voilier;
 /**
@@ -28,7 +30,7 @@ public class VoilierDAO {
         try {
             connection.setAutoCommit(false);
 
-            vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (id_voilier, nom_voilier, num_voilier, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (id_voilier, nom_voilier, num_voile, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             vtmInsertVoilier.setInt(1, v.getId_voilier());
             vtmInsertVoilier.setString(2, v.getNom_voilier());
             vtmInsertVoilier.setInt(3, v.getNum_voile());
@@ -60,16 +62,17 @@ public class VoilierDAO {
         try {
             vtm = connection.createStatement();
 
-            String sql = "select id_voilier, nom_voilier, num_voile, per.nom_personne, per.prenom_personne, cla.nom_classe from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Classe cla ON v.id_classe=cla.id_classe INNER JOIN Personne per ON pro.id_personne=per.id_personne";
+            String sql = "select pro.id_proprietaire, per.id_personne, nom_voilier, num_voile, per.nom_personne, per.prenom_personne, per.email_personne, per.num_licence, per.annee_licence, per.nom_club, cla.nom_classe from Voilier v INNER JOIN Proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN Classe cla ON v.id_classe=cla.id_classe INNER JOIN Personne per ON pro.id_personne=per.id_personne";
             ResultSet rs = vtm.executeQuery(sql);
 
             while (rs.next()) {
-                int id = rs.getInt("id_voilier");
-                String nomVoilier = rs.getString("nom_voilier");
-                int numVoile = rs.getInt("num_voile");
-//                Proprietaire proprietaire = ProprietaireDAO.findBy(rs.getInt("pro.id"));
-//                Classe classe = ClasseDAO.findBy(rs.getInt("cla.id"));
-                Voilier v = new Voilier(id, nomVoilier, numVoile);
+//                int id = rs.getInt("id_voilier");
+                String nom_voilier = rs.getString("nom_voilier");
+                int num_voile = rs.getInt("num_voile");
+            Proprietaire proprietaire = new Proprietaire(rs.getInt("pro.id_proprietaire"), rs.getInt("per.id_personne"), rs.getString("per.nom_personne"), rs.getString("per.prenom_personne"), rs.getString("per.email_personne"), rs.getInt("per.num_licence"), rs.getInt("per.annee_licence"), rs.getString("per.nom_club"));
+                
+                Classe classe = new Classe(rs.getString("cla.nom_classe"));
+                Voilier v = new Voilier(nom_voilier, num_voile, proprietaire, classe);
 
                 Voiliers.add(v);
             }

@@ -23,6 +23,12 @@ public class Classe {
         this.id_serie = id_serie;
     }
 
+    public Classe(String nom_classe) {
+        this.nom_classe = nom_classe;
+    }
+    
+    
+
     public int getId_classe() {
         return id_classe;
     }

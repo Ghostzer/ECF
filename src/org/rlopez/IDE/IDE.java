@@ -22,6 +22,8 @@ public class IDE {
         Scanner sc = new Scanner(System.in);
         MainWindow mainwindow = new MainWindow();
         mainwindow.setVisible(true);
+        mainwindow.setTitle("Ajouter un voilier");
+        mainwindow.setLocationRelativeTo(null);
 
     }
 }

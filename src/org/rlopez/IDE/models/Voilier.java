@@ -20,17 +20,20 @@ public class Voilier {
     Proprietaire proprietaire;
     Classe classe;
 
-//    ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
-//    ArrayList<Classe> classes = new ArrayList<Classe>();
-
-    public Voilier(int id_voilier, String nom_voilier, int num_voile) {
-        this.id_voilier = id_voilier;
+    public Voilier(String nom_voilier, int num_voile) {
         this.nom_voilier = nom_voilier;
         this.num_voile = num_voile;
     }
 
     public Voilier(int id_voilier, String nom_voilier, int num_voile, Proprietaire proprietaire, Classe classe) {
         this.id_voilier = id_voilier;
+        this.nom_voilier = nom_voilier;
+        this.num_voile = num_voile;
+        this.proprietaire = proprietaire;
+        this.classe = classe;
+    }
+    
+        public Voilier(String nom_voilier, int num_voile, Proprietaire proprietaire, Classe classe) {
         this.nom_voilier = nom_voilier;
         this.num_voile = num_voile;
         this.proprietaire = proprietaire;
