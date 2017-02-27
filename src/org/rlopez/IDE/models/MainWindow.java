@@ -157,10 +157,10 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 267, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -203,7 +203,7 @@ public class MainWindow extends javax.swing.JFrame {
         } else {
             
         try {
-            Voilier voi = new Voilier(0, nomVoilier, strTxtNumVoile, proprietaire, classe);
+            Voilier voi = new Voilier(1, nomVoilier, strTxtNumVoile, proprietaire, classe);
             VoilierDAO.insert(voi);
             vtm.addVoilier(voi);
 //        fieldAddNom.setText(null);

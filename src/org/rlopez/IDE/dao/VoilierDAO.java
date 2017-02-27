@@ -28,11 +28,12 @@ public class VoilierDAO {
         try {
             connection.setAutoCommit(false);
 
-            vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (nom_voilier, num_voilier, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
-            vtmInsertVoilier.setString(1, v.getNom_voilier());
-            vtmInsertVoilier.setInt(2, v.getNum_voile());
-            vtmInsertVoilier.setInt(3, v.getProprietaire().getId_proprietaire());
-            vtmInsertVoilier.setInt(4, v.getClasse().getId_classe());
+            vtmInsertVoilier = connection.prepareStatement("INSERT INTO Voilier (id_voilier, nom_voilier, num_voilier, id_proprietaire, id_classe ) VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            vtmInsertVoilier.setInt(1, v.getId_voilier());
+            vtmInsertVoilier.setString(2, v.getNom_voilier());
+            vtmInsertVoilier.setInt(3, v.getNum_voile());
+            vtmInsertVoilier.setInt(4, v.getProprietaire().getId_proprietaire());
+            vtmInsertVoilier.setInt(5, v.getClasse().getId_classe());
 
             vtmInsertVoilier.execute();
 
@@ -44,7 +45,8 @@ public class VoilierDAO {
         } catch (SQLException e) {
             //pb if here
             connection.rollback();
-            throw new Exception("error while creating personne " + e.getMessage());
+            System.out.println("Erreur pendant la creation du voilier");
+            throw new Exception("error" + e.getMessage());
         }
     }
     

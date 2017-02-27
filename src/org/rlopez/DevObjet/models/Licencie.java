@@ -5,12 +5,14 @@
  */
 package org.rlopez.DevObjet.models;
 
+import java.util.Calendar;
+
 /**
  *
  * @author rico
  */
 public class Licencie extends Personne {
-    
+
     int numLicence;
     double pointsFFV;
     int anneeLicence;
@@ -28,10 +30,6 @@ public class Licencie extends Personne {
         this.pointsFFV = pointsFFV;
         this.anneeLicence = anneeLicence;
     }
-    
-    
-    
-    
 
     public int getNumLicence() {
         return numLicence;
@@ -57,15 +55,21 @@ public class Licencie extends Personne {
         this.anneeLicence = anneeLicence;
     }
 
-    
+    public void calculPoints(double pts, Calendar annee) throws Exception {
+
+        if (this.getAnneeLicence() == annee.get(Calendar.YEAR)) {
+            pointsFFV = pointsFFV + pts; 
+        }
+        else {
+              throw new Exception("error");  
+                }
+
+}
+
     @Override
     public String toString() {
         return "Licencié : " + super.toString() + ", Numéro Licence = " + numLicence + ", PointsFFV = " + pointsFFV + ", Année de licence = " + anneeLicence;
     }
-    
-    
-    
-    
     
     
 }

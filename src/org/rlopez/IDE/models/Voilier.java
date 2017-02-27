@@ -33,6 +33,8 @@ public class Voilier {
         this.id_voilier = id_voilier;
         this.nom_voilier = nom_voilier;
         this.num_voile = num_voile;
+        this.proprietaire = proprietaire;
+        this.classe = classe;
     }
 
     public Proprietaire getProprietaire() {

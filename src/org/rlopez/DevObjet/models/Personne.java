@@ -67,14 +67,14 @@ public class Personne {
     
     
     
-public int calculAge() {
-    Calendar now = Calendar.getInstance();
-    int year = now.get(Calendar.YEAR);
-    
-    int age = year - this.getAnneeNaissance();
-    
-    return age;
-}
+    public int calculAge() {
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+
+        int age = year - this.getAnneeNaissance();
+
+        return age;
+    }
 
     @Override
     public String toString() {

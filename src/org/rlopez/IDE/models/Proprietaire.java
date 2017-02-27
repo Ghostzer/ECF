@@ -15,7 +15,6 @@ public class Proprietaire extends Personne {
     
     int id_proprietaire;
     
-    ArrayList<Voilier> voiliers = new ArrayList<Voilier>();
 
     public Proprietaire(int id_proprietaire, int id_Personne, String nom_personne, String prenom_personne, String email_personne, int num_licence, int annee_licence, String nom_club) {
         super(id_Personne, nom_personne, prenom_personne, email_personne, num_licence, annee_licence, nom_club);
@@ -28,14 +27,6 @@ public class Proprietaire extends Personne {
 
     public void setId_proprietaire(int id_propridetaire) {
         this.id_proprietaire = id_proprietaire;
-    }
-
-    public ArrayList<Voilier> getVoiliers() {
-        return voiliers;
-    }
-
-    public void setVoiliers(ArrayList<Voilier> voiliers) {
-        this.voiliers = voiliers;
     }
 
     public int getId_Personne() {
