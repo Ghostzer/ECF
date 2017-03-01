@@ -20,7 +20,7 @@ import org.rlopez.IDE.models.Classe;
  */
 public class ClasseDAO {
 
-public static Classe findBy(int id) {
+    public static Classe findBy(int id) {
         Classe c = null;
         Connection connection = ConnectDB.getConnection();
         PreparedStatement ptm;
@@ -29,9 +29,9 @@ public static Classe findBy(int id) {
             ptm.setInt(1, id);
             ResultSet rs = ptm.executeQuery();
             if (rs.next()) {
-                c = new Classe(rs.getInt("id_classe"), 
-                        rs.getString("nom_classe"), 
-                        rs.getInt("coef"), 
+                c = new Classe(rs.getInt("id_classe"),
+                        rs.getString("nom_classe"),
+                        rs.getInt("coef"),
                         rs.getInt("id_serie"));
             }
 
@@ -43,7 +43,7 @@ public static Classe findBy(int id) {
         return c;
     }
 
-public static List<Classe> findAllClasse() {
+    public static List<Classe> findAllClasse() {
 
         Connection connection = ConnectDB.getConnection();
 
@@ -74,6 +74,5 @@ public static List<Classe> findAllClasse() {
         return Classes;
 
     }
-
 
 }

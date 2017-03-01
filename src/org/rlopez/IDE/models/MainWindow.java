@@ -5,11 +5,13 @@
  */
 package org.rlopez.IDE.models;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.rlopez.IDE.dao.ClasseDAO;
 import org.rlopez.IDE.dao.VoilierDAO;
 import org.rlopez.IDE.dao.ProprietaireDAO;
+import org.rlopez.IDE.dao.SerieDAO;
 
 /**
  *
@@ -20,19 +22,24 @@ public class MainWindow extends javax.swing.JFrame {
     VoilierTableModel vtm;
 
     public MainWindow() {
-        txtNomVoilier = null;
-        txtNumVoile = null;
+//        txtNomVoilier = null;
+//        txtNumVoile = null;
         initComponents();
+        
 
+         List<Serie> series = SerieDAO.findAllSerie();
+        for (Serie s : series) {
+            comboSerie.addItem(s);
+        }
+        
+
+        
+        
         List<Proprietaire> proprietaires = ProprietaireDAO.findAllProprietaire();
         for (Proprietaire p : proprietaires) {
             comboProprio.addItem(p);
         }
 
-        List<Classe> classes = ClasseDAO.findAllClasse();
-        for (Classe c : classes) {
-            comboClasse.addItem(c);
-        }
 
     }
 
@@ -58,6 +65,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        comboSerie = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        lblMsgInfo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -92,6 +102,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         comboClasse.setToolTipText("Choix de la classe");
+        comboClasse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboClasseActionPerformed(evt);
+            }
+        });
 
         btnAddVoilier.setText("Ajouter");
         btnAddVoilier.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +123,19 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setText("Classe");
 
+        comboSerie.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboSerieMouseClicked(evt);
+            }
+        });
+        comboSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSerieActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Serie");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -115,20 +143,33 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddVoilier)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblMsgInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddVoilier))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -144,14 +185,20 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnAddVoilier)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddVoilier)
+                    .addComponent(lblMsgInfo))
                 .addContainerGap())
         );
 
@@ -179,10 +226,10 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -246,24 +293,28 @@ public class MainWindow extends javax.swing.JFrame {
 
         String nomVoilier = txtNomVoilier.getText();
         String numVoile = txtNumVoile.getText();
-        int strTxtNumVoile = Integer.parseInt(numVoile);
         Object listeProprio = comboProprio.getSelectedItem();
         Object listeClasse = comboClasse.getSelectedItem();
 
         Proprietaire proprietaire = (Proprietaire) listeProprio;
         Classe classe = (Classe) listeClasse;
 
-        if (numVoile.isEmpty() || nomVoilier.isEmpty()) {
+        if (nomVoilier.isEmpty() || numVoile.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
             try {
+        int strTxtNumVoile = Integer.parseInt(numVoile);
                 Voilier voi = new Voilier(nomVoilier, strTxtNumVoile, proprietaire, classe);
                 VoilierDAO.insert(voi);
                 vtm.addVoilier(voi);
                 txtNomVoilier.setText(null);
                 txtNumVoile.setText(null);
-            } catch (Exception e1) {
+                lblMsgInfo.setText("Le voilier a bien été ajouté.");
+                lblMsgInfo.setForeground(Color.blue);
+            } catch (Exception e) {
+                lblMsgInfo.setText("Erreur !");
+                lblMsgInfo.setForeground(Color.red);
             }
         }
     }//GEN-LAST:event_btnAddVoilierActionPerformed
@@ -292,6 +343,19 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClasseActionPerformed
+        Object id = comboSerie.getSelectedItem();
+        
+    }//GEN-LAST:event_comboClasseActionPerformed
+
+    private void comboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSerieActionPerformed
+        
+    }//GEN-LAST:event_comboSerieActionPerformed
+
+    private void comboSerieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboSerieMouseClicked
+        
+    }//GEN-LAST:event_comboSerieMouseClicked
 
     /**
      * @param args the command line arguments
@@ -332,11 +396,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnAddVoilier;
     private javax.swing.JComboBox<Classe> comboClasse;
     private javax.swing.JComboBox<Proprietaire> comboProprio;
+    private javax.swing.JComboBox<Serie> comboSerie;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -347,6 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMsgInfo;
     private javax.swing.JTable tblVoilier;
     private javax.swing.JTextField txtNomVoilier;
     private javax.swing.JTextField txtNumVoile;

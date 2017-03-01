@@ -42,13 +42,13 @@ public class VoilierDAO {
 
             connection.commit();
             vtmInsertVoilier.close();
-            vtmInsertVoilier.close();
+//            vtmInsertVoilier.close();
 
         } catch (SQLException e) {
             //pb if here
             connection.rollback();
             System.out.println("Erreur pendant la creation du voilier");
-            throw new Exception("error" + e.getMessage());
+            throw new Exception("Erreur pendant la creation du voilier" + e.getMessage());
         }
     }
     
