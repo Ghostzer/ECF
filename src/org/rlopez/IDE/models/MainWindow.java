@@ -19,27 +19,28 @@ import org.rlopez.IDE.dao.SerieDAO;
  * @author rico
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    
     VoilierTableModel vtm;
-
-
+    
     public MainWindow() {
-
+        
         initComponents();
-
-        int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie(); 
+        
+        int serie = ((Serie) comboSerie.getSelectedItem()).getId_serie();        
         System.out.println(ClasseDAO.findBy(serie).toArray().length + " " + serie);
         comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
-
         
         List<Proprietaire> proprietaires = ProprietaireDAO.findAllProprietaire();
         for (Proprietaire p : proprietaires) {
             comboProprio.addItem(p);
         }
         
-
+        comboClasse.setVisible(false);
+        lblClasse.setVisible(false);
+        comboProprio.setVisible(false);
+        lblPro.setVisible(false);
+        btnAddVoilier.setEnabled(false);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,8 +62,8 @@ public class MainWindow extends javax.swing.JFrame {
         btnAddVoilier = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblPro = new javax.swing.JLabel();
+        lblClasse = new javax.swing.JLabel();
         comboSerie = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         lblMsgInfo = new javax.swing.JLabel();
@@ -117,9 +118,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel2.setText("Numéro du voilier");
 
-        jLabel3.setText("Propriétaire");
+        lblPro.setText("Propriétaire");
 
-        jLabel4.setText("Classe");
+        lblClasse.setText("Classe");
 
         List<Serie> series = SerieDAO.findAllSerie();
         for (Serie s : series) {
@@ -144,7 +145,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(lblClasse))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
@@ -164,7 +165,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAddVoilier))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblPro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -187,11 +188,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(lblClasse))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(lblPro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddVoilier)
@@ -229,7 +230,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Fichier");
@@ -280,33 +281,40 @@ public class MainWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddVoilierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVoilierActionPerformed
-
+        
         String nomVoilier = txtNomVoilier.getText();
         String numVoile = txtNumVoile.getText();
         Object listeClasse = comboClasse.getSelectedItem();
         Object listeProprio = comboProprio.getSelectedItem();
-
+        
         Classe classe = (Classe) listeClasse;
         Proprietaire proprietaire = (Proprietaire) listeProprio;
-
+        
         if (nomVoilier.isEmpty() || numVoile.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } else {
-
+            
             try {
-        int strTxtNumVoile = Integer.parseInt(numVoile);
+                int strTxtNumVoile = Integer.parseInt(numVoile);
                 Voilier voi = new Voilier(nomVoilier, strTxtNumVoile, proprietaire, classe);
                 VoilierDAO.insert(voi);
                 vtm.addVoilier(voi);
                 txtNomVoilier.setText(null);
                 txtNumVoile.setText(null);
+                comboClasse.setVisible(false);
+        lblClasse.setVisible(false);
+        comboProprio.setVisible(false);
+        lblPro.setVisible(false);
+        btnAddVoilier.setEnabled(false);
                 lblMsgInfo.setText("Le voilier a bien été ajouté.");
                 lblMsgInfo.setForeground(Color.blue);
             } catch (Exception e) {
@@ -317,7 +325,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddVoilierActionPerformed
 
     private void comboProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProprioActionPerformed
-        // TODO add your handling code here:
+        btnAddVoilier.setEnabled(true);
     }//GEN-LAST:event_comboProprioActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -327,6 +335,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         txtNomVoilier.setText(null);
         txtNumVoile.setText(null);
+        lblClasse.setVisible(false);
+        comboProprio.setVisible(false);
+        lblPro.setVisible(false);
+        btnAddVoilier.setEnabled(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -342,13 +354,17 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClasseActionPerformed
-
-   
+        comboProprio.setVisible(true);
+        lblPro.setVisible(true);
+        
     }//GEN-LAST:event_comboClasseActionPerformed
 
     private void comboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSerieActionPerformed
-int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie(); 
+        int serie = ((Serie) comboSerie.getSelectedItem()).getId_serie();        
         comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
+        
+        comboClasse.setVisible(true);
+        lblClasse.setVisible(true);
     }//GEN-LAST:event_comboSerieActionPerformed
 
     /**
@@ -394,8 +410,6 @@ int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie();
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -407,7 +421,9 @@ int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblClasse;
     private javax.swing.JLabel lblMsgInfo;
+    private javax.swing.JLabel lblPro;
     private javax.swing.JTable tblVoilier;
     private javax.swing.JTextField txtNomVoilier;
     private javax.swing.JTextField txtNumVoile;
