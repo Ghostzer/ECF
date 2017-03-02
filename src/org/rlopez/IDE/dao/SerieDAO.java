@@ -46,7 +46,7 @@ public class SerieDAO {
 
         Connection connection = ConnectDB.getConnection();
 
-        List<Serie> Series = new ArrayList<>();
+        List<Serie> series = new ArrayList<>();
         Statement stm;
         try {
             stm = connection.createStatement();
@@ -61,7 +61,7 @@ public class SerieDAO {
 
                 Serie s = new Serie(id_serie, nom_serie);
 
-                Series.add(s);
+                series.add(s);
             }
             rs.close();
 
@@ -69,7 +69,7 @@ public class SerieDAO {
 //            throw new RuntimeException();
         }
 
-        return Series;
+        return series;
 
     }
     

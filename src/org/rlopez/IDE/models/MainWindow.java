@@ -6,6 +6,7 @@
 package org.rlopez.IDE.models;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.rlopez.IDE.dao.ClasseDAO;
@@ -21,27 +22,24 @@ public class MainWindow extends javax.swing.JFrame {
 
     VoilierTableModel vtm;
 
+
     public MainWindow() {
-//        txtNomVoilier = null;
-//        txtNumVoile = null;
+
         initComponents();
-        
 
-         List<Serie> series = SerieDAO.findAllSerie();
-        for (Serie s : series) {
-            comboSerie.addItem(s);
-        }
-        
+        int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie(); 
+        System.out.println(ClasseDAO.findBy(serie).toArray().length + " " + serie);
+        comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
 
-        
         
         List<Proprietaire> proprietaires = ProprietaireDAO.findAllProprietaire();
         for (Proprietaire p : proprietaires) {
             comboProprio.addItem(p);
         }
-
+        
 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +57,7 @@ public class MainWindow extends javax.swing.JFrame {
         txtNomVoilier = new javax.swing.JTextField();
         txtNumVoile = new javax.swing.JTextField();
         comboProprio = new javax.swing.JComboBox<>();
-        comboClasse = new javax.swing.JComboBox<>();
+        comboClasse = new javax.swing.JComboBox();
         btnAddVoilier = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -123,11 +121,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setText("Classe");
 
-        comboSerie.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboSerieMouseClicked(evt);
-            }
-        });
+        List<Serie> series = SerieDAO.findAllSerie();
+        for (Serie s : series) {
+            comboSerie.addItem(s);
+        }
         comboSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSerieActionPerformed(evt);
@@ -293,11 +290,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         String nomVoilier = txtNomVoilier.getText();
         String numVoile = txtNumVoile.getText();
-        Object listeProprio = comboProprio.getSelectedItem();
         Object listeClasse = comboClasse.getSelectedItem();
+        Object listeProprio = comboProprio.getSelectedItem();
 
-        Proprietaire proprietaire = (Proprietaire) listeProprio;
         Classe classe = (Classe) listeClasse;
+        Proprietaire proprietaire = (Proprietaire) listeProprio;
 
         if (nomVoilier.isEmpty() || numVoile.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -345,17 +342,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClasseActionPerformed
-        Object id = comboSerie.getSelectedItem();
-        
+
+   
     }//GEN-LAST:event_comboClasseActionPerformed
 
     private void comboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSerieActionPerformed
-        
+int serie = ((Serie)comboSerie.getSelectedItem()).getId_serie(); 
+        comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
     }//GEN-LAST:event_comboSerieActionPerformed
-
-    private void comboSerieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboSerieMouseClicked
-        
-    }//GEN-LAST:event_comboSerieMouseClicked
 
     /**
      * @param args the command line arguments

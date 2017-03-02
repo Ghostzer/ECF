@@ -46,6 +46,8 @@ public class VoilierDAO {
 
         } catch (SQLException e) {
             //pb if here
+            e.printStackTrace();
+            e.getMessage();
             connection.rollback();
             System.out.println("Erreur pendant la creation du voilier");
             throw new Exception("Erreur pendant la creation du voilier" + e.getMessage());

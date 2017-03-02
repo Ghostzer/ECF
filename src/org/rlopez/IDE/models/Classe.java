@@ -23,9 +23,18 @@ public class Classe {
         this.id_serie = id_serie;
     }
 
+    public Classe(int id_classe, String nom_classe) {
+        this.id_classe = id_classe;
+        this.nom_classe = nom_classe;
+    }
+    
+    
+
     public Classe(String nom_classe) {
         this.nom_classe = nom_classe;
     }
+    
+    
     
     
 
