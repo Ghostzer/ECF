@@ -121,7 +121,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         lblNomVoilier.setText("Nom du voilier");
 
-        lblNumVoile.setText("Numéro du voilier");
+        lblNumVoile.setText("Numéro de voile");
 
         lblPro.setText("Propriétaire");
 
@@ -149,27 +149,28 @@ public class MainWindow extends javax.swing.JFrame {
             panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAddVoilierLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSerie)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddVoilierLayout.createSequentialGroup()
                         .addComponent(lblMsgInfoVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAddVoilier))
-                    .addGroup(panelAddVoilierLayout.createSequentialGroup()
-                        .addComponent(lblPro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelAddVoilierLayout.createSequentialGroup()
-                        .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNomVoilier)
-                            .addComponent(lblNumVoile)
-                            .addComponent(lblClasse))
-                        .addGap(30, 30, 30)
-                        .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAddVoilierLayout.createSequentialGroup()
+                            .addComponent(lblPro)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAddVoilierLayout.createSequentialGroup()
+                            .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNomVoilier)
+                                .addComponent(lblNumVoile)
+                                .addComponent(lblClasse))
+                            .addGap(30, 30, 30)
+                            .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtNomVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -374,7 +375,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2.setText("Edition");
 
         menuItemDelField.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemDelField.setText("Effacer les champs");
+        menuItemDelField.setText("Effacer tous les champs");
         menuItemDelField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDelFieldActionPerformed(evt);
