@@ -1,4 +1,4 @@
-package org.rlopez.Algo.models;
+package org.rlopez.DevObjet.models;
 
 /**
  *

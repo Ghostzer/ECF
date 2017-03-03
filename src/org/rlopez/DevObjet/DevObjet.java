@@ -1,18 +1,18 @@
-package org.rlopez.Algo;
+package org.rlopez.DevObjet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import org.rlopez.Algo.models.Commissaire;
-import org.rlopez.Algo.models.Licencie;
-import org.rlopez.Algo.models.Personne;
-import org.rlopez.Algo.models.Proprietaire;
+import org.rlopez.DevObjet.models.Commissaire;
+import org.rlopez.DevObjet.models.Licencie;
+import org.rlopez.DevObjet.models.Personne;
+import org.rlopez.DevObjet.models.Proprietaire;
 
 /**
  *
  * @author Richard Lopez
  */
-public class Algo {
+public class DevObjet {
 
     /**
      * @param args the command line arguments
@@ -51,7 +51,7 @@ public class Algo {
         System.out.println("\n");
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, 2012);
+        c.set(Calendar.YEAR, 2011);
         try {
             lic3.calculPoints(10, c);
             System.out.println("Points ajoutés ! " + lic3.getPrenom() + " a maintenant " + lic3.getPointsFFV() + " points");
