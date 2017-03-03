@@ -416,7 +416,7 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        JOptionPane.showMessageDialog(null, "Réalisé par Richard Lopez \nPour l'ECF \"Ajouter un voilier\"");
+        JOptionPane.showMessageDialog(null, "Réalisé par Richard Lopez. \nECF \"Ajouter un voilier\".", "A propos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menuItemDelFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDelFieldActionPerformed
