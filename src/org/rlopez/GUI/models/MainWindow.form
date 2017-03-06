@@ -313,9 +313,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblMsgInfoVoilier">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="dfgfdg"/>
-              </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>

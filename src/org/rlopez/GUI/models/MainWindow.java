@@ -153,8 +153,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         lblSerie.setText("Serie");
 
-        lblMsgInfoVoilier.setText("dfgfdg");
-
         jScrollPane1.setViewportView(tblVoilier);
         vtm = new VoilierTableModel(VoilierDAO.findAllVoilier());
         tblVoilier.setModel(vtm);
