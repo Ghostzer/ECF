@@ -1,38 +1,51 @@
 package org.rlopez.GUI.models;
 
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import org.rlopez.GUI.dao.ClasseDAO;
+import org.rlopez.GUI.dao.ConnectDB;
 import org.rlopez.GUI.dao.VoilierDAO;
 import org.rlopez.GUI.dao.ProprietaireDAO;
 import org.rlopez.GUI.dao.SerieDAO;
+import sun.applet.Main;
 
 /**
  *
  * @author Richard Lopez
  */
 public class MainWindow extends javax.swing.JFrame {
-    
+
     VoilierTableModel vtm;
-    
+
     public MainWindow() {
-        
+
         initComponents();
-        
+
         int serie = ((Serie) comboSerie.getSelectedItem()).getId_serie();
         System.out.println(ClasseDAO.findBy(serie).toArray().length + " " + serie);
         comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
-        
+
         initListProprio();
-        
+
         comboClasse.setVisible(false);
         lblClasse.setVisible(false);
         comboProprio.setVisible(false);
         lblPro.setVisible(false);
         btnAddVoilier.setEnabled(false);
     }
-    
+
     public void initListProprio() {
         List<Proprietaire> proprietaires = ProprietaireDAO.findAllProprietaire();
         for (Proprietaire p : proprietaires) {
@@ -65,6 +78,7 @@ public class MainWindow extends javax.swing.JFrame {
         lblMsgInfoVoilier = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVoilier = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         panelAddPro = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         lblAddProNom = new javax.swing.JLabel();
@@ -139,9 +153,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         lblSerie.setText("Serie");
 
+        lblMsgInfoVoilier.setText("dfgfdg");
+
         jScrollPane1.setViewportView(tblVoilier);
         vtm = new VoilierTableModel(VoilierDAO.findAllVoilier());
         tblVoilier.setModel(vtm);
+
+        jButton1.setText("Générer PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAddVoilierLayout = new javax.swing.GroupLayout(panelAddVoilier);
         panelAddVoilier.setLayout(panelAddVoilierLayout);
@@ -171,8 +194,13 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addComponent(txtNumVoile, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(comboSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(comboClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1)
+                .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAddVoilierLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddVoilierLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         panelAddVoilierLayout.setVerticalGroup(
@@ -199,13 +227,15 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboProprio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPro))
-                        .addGap(30, 30, 30)
-                        .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddVoilier)
-                            .addComponent(lblMsgInfoVoilier)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                            .addComponent(lblPro)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMsgInfoVoilier)
+                    .addGroup(panelAddVoilierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddVoilier)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelAddPro.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter un propriétaire"));
@@ -441,15 +471,15 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemExitActionPerformed
 
     private void btnAddProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProActionPerformed
-        
+
         String nomPersonne = txtAddProNom.getText();
         String prenomPersonne = txtAddProPrenom.getText();
         String emailPersonne = txtAddProEmail.getText();
         String numLicence = txtAddProNumLicence.getText();
         String anneeLicence = txtAddProAnneeLicence.getText();
         String nomClub = txtAddProNomClub.getText();
-        
-        if (nomPersonne.isEmpty() || prenomPersonne.isEmpty() || emailPersonne.isEmpty() || numLicence.isEmpty() || anneeLicence.isEmpty() || nomClub.isEmpty() ) {
+
+        if (nomPersonne.isEmpty() || prenomPersonne.isEmpty() || emailPersonne.isEmpty() || numLicence.isEmpty() || anneeLicence.isEmpty() || nomClub.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tous les champs sont requis !", "Erreur", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
@@ -467,7 +497,7 @@ public class MainWindow extends javax.swing.JFrame {
                 txtAddProNumLicence.setText(null);
                 txtAddProAnneeLicence.setText(null);
                 txtAddProNomClub.setText(null);
-                
+
             } catch (Exception e) {
                 lblMsgInfoProprietaire.setText("Erreur !");
                 lblMsgInfoProprietaire.setForeground(Color.red);
@@ -478,25 +508,25 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSerieActionPerformed
         int serie = ((Serie) comboSerie.getSelectedItem()).getId_serie();
         comboClasse.setModel(new javax.swing.DefaultComboBoxModel(ClasseDAO.findBy(serie).toArray()));
-        
+
         comboClasse.setVisible(true);
         lblClasse.setVisible(true);
     }//GEN-LAST:event_comboSerieActionPerformed
 
     private void btnAddVoilierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVoilierActionPerformed
-        
+
         String nomVoilier = txtNomVoilier.getText();
         String numVoile = txtNumVoile.getText();
         Object listeClasse = comboClasse.getSelectedItem();
         Object listeProprio = comboProprio.getSelectedItem();
-        
+
         Classe classe = (Classe) listeClasse;
         Proprietaire proprietaire = (Proprietaire) listeProprio;
-        
+
         if (nomVoilier.isEmpty() || numVoile.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.WARNING_MESSAGE);
         } else {
-            
+
             try {
                 int strTxtNumVoile = Integer.parseInt(numVoile);
                 Voilier voi = new Voilier(nomVoilier, strTxtNumVoile, proprietaire, classe);
@@ -526,6 +556,28 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProprioActionPerformed
         btnAddVoilier.setEnabled(true);
     }//GEN-LAST:event_comboProprioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        try {
+        JasperReport report = (JasperReport) JRLoader.loadObject(MainWindow.class.getResource("../reports/Invoice_Table_Based.jasper"));
+        report.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "false");
+        report.setProperty("net.sf.jasperreports.default.font.name=SansSerif", "true");
+        HashMap<String, Object> params = new HashMap<>();
+
+        JasperPrint jPrint = JasperFillManager.fillReport(report, params, ConnectDB.getConnection());
+
+        JFrame pdfFrame = new JFrame("Rapport");
+        pdfFrame.getContentPane().add(new JRViewer(jPrint));
+        pdfFrame.pack();
+        pdfFrame.setSize(this.getSize());
+        pdfFrame.setVisible(true);
+
+    } catch (JRException ex) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -568,6 +620,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<Classe> comboClasse;
     private javax.swing.JComboBox<Proprietaire> comboProprio;
     private javax.swing.JComboBox<Serie> comboSerie;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
