@@ -13,7 +13,7 @@ public class ConnectDB {
     public static Connection getConnection() {
         String url = "jdbc:mysql://localhost/dahouet";
         String login = "root";
-        String passwd = "pouet";
+        String passwd = "";
         Connection cn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
